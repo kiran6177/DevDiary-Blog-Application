@@ -4,7 +4,9 @@ import { AUTH_BASE_URL, emailRegex, passwordRegex } from "../../config";
 
 export async function POST(request) {
     const data = await request.json();
-    if(data?.email?.trim() === "" && data?.password?.trim() === ""){
+    console.log(data);
+    
+    if(data?.name?.trim() === "" && data?.email?.trim() === "" && data?.designation?.trim() === "" &&  data?.password?.trim() === "" && data?.cPassword?.trim() === ""){
         return new NextResponse(JSON.stringify({error:"Please fill up the fields!!"}),{
             status : 400,
             headers:{
@@ -59,12 +61,29 @@ export async function POST(request) {
         })
     }
 
-    const response = await fetch(AUTH_BASE_URL+'/login',{
+    if(data?.cPassword?.trim() === ""){
+        return new NextResponse(JSON.stringify({error:"Please Confirm your password!!"}),{
+            status : 400,
+            headers:{
+                "Content-Type": "application/json" 
+            }
+        })
+    }
+
+    if(data?.password?.trim() !== data?.cPassword?.trim()){
+        return new NextResponse(JSON.stringify({error:"Password Mismatch!!"}),{
+            status : 400,
+            headers:{
+                "Content-Type": "application/json" 
+            }
+        })
+    }
+
+    const response = await fetch(AUTH_BASE_URL+'/signup',{
         method:"POST",
         headers:{
             "Content-Type": "application/json" 
         },
-        credentials:"include",
         body:JSON.stringify(data)
     })
     const resultData = await response.json();

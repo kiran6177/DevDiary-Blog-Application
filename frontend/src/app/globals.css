@@ -12,4 +12,7 @@
   .inp-type1{
     @apply w-[100%] border-2 border-black rounded-sm p-2 
   }
+  .select-type1{
+    @apply w-[100%] border-2 border-black rounded-sm p-2 
+  }
 }

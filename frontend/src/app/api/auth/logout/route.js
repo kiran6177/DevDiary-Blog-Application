@@ -1,0 +1,33 @@
+import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
+import { AUTH_BASE_URL } from "../../config";
+
+export async function GET(request) {
+    const token = request.cookies.get('token');
+    const refresh = request.cookies.get('refresh');
+    console.log(token,refresh);
+
+    const response = await fetch(AUTH_BASE_URL+'/logout',{
+        method:"GET",
+        headers:{
+            "Content-Type": "application/json" 
+        },
+        credentials:"include",
+    })
+    const resultData = await response.json();
+    console.log("RESDATA",resultData);
+    
+    const nextResponse = NextResponse.json(resultData, {
+        status: response.status,
+    });
+
+    cookies().delete('token');
+    cookies().delete('refresh');
+
+    const setCookieHeader = response.headers.get('set-cookie');
+    if (setCookieHeader) {
+        nextResponse.headers.set('Set-Cookie', setCookieHeader);
+    }
+
+    return nextResponse;
+}
