@@ -18,11 +18,11 @@ const Header = () => {
             <h1 className={`font-bold text-3xl ${montserrat.className} antialiased`}>DevDiary</h1>
         </div>
         <div className='flex items-center gap-8 w-[70%] justify-end'>
-            <IoCreateOutline className="w-[1.5rem] h-[1.5rem] " />
+            <IoCreateOutline onClick={()=>router.push('/write')} className="w-[1.5rem] h-[1.5rem] cursor-pointer" />
             {user ? 
-            <FaUser onClick={()=>router.push('/profile')} className="w-[1.5rem] h-[1.5rem]"/>
+            <FaUser onClick={()=>router.push('/profile')} className="w-[1.5rem] h-[1.5rem] cursor-pointer"/>
             :
-            <RiLoginCircleLine onClick={()=>router.push('/login')} className="w-[1.5rem] h-[1.5rem]" /> 
+            <RiLoginCircleLine onClick={()=>router.push('/login')} className="w-[1.5rem] h-[1.5rem] cursor-pointer" /> 
             }
         </div>
         </nav>

@@ -15,4 +15,7 @@
   .select-type1{
     @apply w-[100%] border-2 border-black rounded-sm p-2 
   }
+  .textarea-type1{
+    @apply w-[100%] border-2 border-black rounded-sm p-2 
+  }
 }

@@ -20,7 +20,7 @@ export default function SignupForm() {
     console.log(name, email, designation, password, cPassword);
     fetchData(
       "/api/auth/signup",
-      { name, email, designation, password, cPassword },
+      JSON.stringify({ name, email, designation, password, cPassword }),
       "POST"
     );
   };

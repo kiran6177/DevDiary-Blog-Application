@@ -55,7 +55,7 @@ export const login = async (req, res, next) => {
       designation: findUser.designation,
     };
 
-    const access_token = await createToken(userData);
+    const access_token = await createToken({ _id: userData._id });
     const refresh_token = await createRefreshToken({ _id: userData._id });
 
     res.cookie("token", access_token, {
