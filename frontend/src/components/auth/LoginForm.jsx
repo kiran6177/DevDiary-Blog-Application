@@ -19,8 +19,7 @@ export default function LoginForm() {
 
     const handleLoginSubmit = (e)=>{
         e.preventDefault();
-        console.log(email,password);
-        fetchData('/api/auth/login',{email,password},"POST")
+        fetchData('/api/auth/login',JSON.stringify({email,password}),"POST")
         
     }
 

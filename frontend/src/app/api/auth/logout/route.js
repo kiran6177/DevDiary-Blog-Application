@@ -5,7 +5,6 @@ import { AUTH_BASE_URL } from "../../config";
 export async function GET(request) {
     const token = request.cookies.get('token');
     const refresh = request.cookies.get('refresh');
-    console.log(token,refresh);
 
     const response = await fetch(AUTH_BASE_URL+'/logout',{
         method:"GET",
@@ -15,7 +14,6 @@ export async function GET(request) {
         credentials:"include",
     })
     const resultData = await response.json();
-    console.log("RESDATA",resultData);
     
     const nextResponse = NextResponse.json(resultData, {
         status: response.status,

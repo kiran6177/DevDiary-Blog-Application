@@ -4,6 +4,7 @@ import cors from 'cors';
 import userRouter from './routes/userRouter.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { connection } from './config/connection.js';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
@@ -12,7 +13,10 @@ const PORT = process.env.PORT;
 
 connection()
 
-app.use(cors())
+app.use(cookieParser())
+app.use(cors({
+    credentials:true
+}))
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 

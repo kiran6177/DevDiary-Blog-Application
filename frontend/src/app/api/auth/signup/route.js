@@ -4,7 +4,6 @@ import { AUTH_BASE_URL, emailRegex, passwordRegex } from "../../config";
 
 export async function POST(request) {
     const data = await request.json();
-    console.log(data);
     
     if(data?.name?.trim() === "" && data?.email?.trim() === "" && data?.designation?.trim() === "" &&  data?.password?.trim() === "" && data?.cPassword?.trim() === ""){
         return new NextResponse(JSON.stringify({error:"Please fill up the fields!!"}),{
@@ -87,7 +86,6 @@ export async function POST(request) {
         body:JSON.stringify(data)
     })
     const resultData = await response.json();
-    console.log("RESDATA",resultData);
     
 
     const nextResponse = NextResponse.json(resultData, {

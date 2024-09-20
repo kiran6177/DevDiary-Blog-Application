@@ -22,10 +22,6 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  subject:{
-    type: String,
-    required: true,
-  },
   brief:{
     type: String,
     required: true,

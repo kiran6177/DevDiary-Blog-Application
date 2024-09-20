@@ -7,7 +7,6 @@ export const metadata = {
 }
 
 export default function page() {
-    console.log("Login");
     
   return (
     <div className='pt-[13rem] pb-[7rem] px-[3rem] flex flex-col justify-start items-center min-h-screen gap-3 '>
