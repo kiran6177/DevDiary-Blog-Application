@@ -1,5 +1,6 @@
 import express from "express";
-import { login, logout, signup } from "../controllers/authController.js";
+import { changePassword, editProfile, login, logout, signup } from "../controllers/authController.js";
+import { isUserLogin } from "../middleware/authHandler.js";
 
 const authRouter = express.Router();
 
@@ -11,5 +12,11 @@ authRouter.route("/signup")
 
 authRouter.route("/logout")
 .get(logout)
+
+authRouter.route("/profile")
+.put(isUserLogin,editProfile)
+
+authRouter.route("/changepass")
+.put(isUserLogin,changePassword)
 
 export default authRouter;

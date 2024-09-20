@@ -10,7 +10,6 @@ export const isUserLogin = async (req, res, next) => {
     if (req.headers && req.headers["authorization"]) {
       const access_token = req.headers["authorization"].split(" ")[1];
       const decoded = await verifyAccessToken(access_token);
-      console.log(decoded);
       if (decoded) {
         const userWOP = {
           _id: decoded._id,
@@ -22,7 +21,6 @@ export const isUserLogin = async (req, res, next) => {
           const refreshToken = req.cookies["refresh"];
           if (refreshToken) {
             const decoded = await verifyRefreshToken(refreshToken);
-            console.log("REfresh", decoded);
             if (decoded) {
               const userWOP = {
                 _id: decoded._id,
@@ -57,12 +55,10 @@ export const isUserLogin = async (req, res, next) => {
         }
       }
     } else {
-      console.log(req.cookies);
       if (req.cookies && req.cookies["refresh"]) {
         const refreshToken = req.cookies["refresh"];
         if (refreshToken) {
           const decoded = await verifyRefreshToken(refreshToken);
-          console.log("REfresh", decoded);
           if (decoded) {
             const userWOP = {
               _id: decoded._id,

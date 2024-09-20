@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
-import { AUTH_BASE_URL, emailRegex, passwordRegex } from "../../config";
+import { AUTH_BASE_URL, emailRegex } from "../../config";
 
 
-export async function POST(request) {
+export async function PUT(request) {
     const data = await request.json();
-    if(data?.email?.trim() === "" && data?.password?.trim() === ""){
+    const token = request.cookies.get("token");
+    const cookieHeader = request.headers.get("cookie");
+    
+    if(data?.name?.trim() === "" && data?.email?.trim() === "" && data?.designation?.trim() === "" ){
         return new NextResponse(JSON.stringify({error:"Please fill up the fields!!"}),{
             status : 400,
             headers:{
@@ -32,39 +35,14 @@ export async function POST(request) {
         })
     }
 
-    if(data?.password?.trim() === ""){
-        return new NextResponse(JSON.stringify({error:"Please enter a password!!"}),{
-            status : 400,
-            headers:{
-                "Content-Type": "application/json" 
-            }
-        })
-    }
 
-    if(data?.password?.trim().length < 8){
-        return new NextResponse(JSON.stringify({error:"Password should contain minimum 8 digits!!"}),{
-            status : 400,
-            headers:{
-                "Content-Type": "application/json" 
-            }
-        })
-    }
-
-    if(!passwordRegex.test(data.password)){
-        return new NextResponse(JSON.stringify({error:"Password should contain alphabets and digits!!"}),{
-            status : 400,
-            headers:{
-                "Content-Type": "application/json" 
-            }
-        })
-    }
-
-    const response = await fetch(AUTH_BASE_URL+'/login',{
-        method:"POST",
+    const response = await fetch(AUTH_BASE_URL+'/profile',{
+        method:"PUT",
         headers:{
-            "Content-Type": "application/json" 
+            "Content-Type": "application/json" ,
+            authorization: `Bearer ${token?.value || null}`,
+            Cookie: cookieHeader,
         },
-        credentials:"include",
         body:JSON.stringify(data)
     })
     const resultData = await response.json();

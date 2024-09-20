@@ -2,6 +2,7 @@ import { AuthProvider} from "@/context/AuthContext";
 import "./globals.css";
 import Header from "@/components/Header";
 import { poppins } from "@/fonts";
+import { BlogProvider } from "@/context/BlogContext";
 
 export const metadata = {
   title: "DevDiary",
@@ -13,8 +14,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
         <AuthProvider>
-        <Header/>
-        {children}
+          <BlogProvider>
+            <Header/>
+            {children}
+          </BlogProvider>
         </AuthProvider>
       </body>
     </html>

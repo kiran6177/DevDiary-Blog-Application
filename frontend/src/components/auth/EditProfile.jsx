@@ -1,40 +1,45 @@
-"use client";
-
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import SmallButton from "../Button/SmallButton";
+"use client"
 import useFetch from "@/hooks/fetch";
-import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import SmallButton from "../Button/SmallButton";
+import Image from "next/image";
+import { useAuth } from "@/context/AuthContext";
 
-export default function SignupForm() {
+function EditProfile() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [designation, setDesignation] = useState("Developer");
-  const [password, setPassword] = useState("");
-  const [cPassword, setCpassword] = useState("");
+
   const { data, loading, error, fetchData } = useFetch();
 
-  const handleSignupSubmit = (e) => {
-    e.preventDefault();
-    fetchData(
-      "/api/auth/signup",
-      JSON.stringify({ name, email, designation, password, cPassword }),
-      "POST"
-    );
-  };
+const {user,setUser} = useAuth();
 
-  useEffect(() => {
-    if (data?.success) {
-      toast.success("Account Created Successfully.");
+useEffect(()=>{
+    if(user){
+        setName(user?.name)
+        setEmail(user?.email)
+        setDesignation(user?.designation)
     }
-  }, [data]);
+},[user])
+
+useEffect(()=>{
+  if(data?.success){
+    setUser(data.success);
+    toast.success("Profile Updated Successfully.",{duration:1000});
+  }
+},[data])
+
+  const handleUpdateSubmit = (e) => {
+    e.preventDefault();
+    fetchData("/api/auth/profile",JSON.stringify({name,email,designation}),"PUT")
+  };
 
   return (
     <div className="w-full flex justify-center ">
-      <Toaster position="top-right" containerStyle={{top:90,right:50}} />
+      <Toaster position="top-right" containerStyle={{ top: 90, right: 50 }} />
       <form
-        onSubmit={handleSignupSubmit}
+        onSubmit={handleUpdateSubmit}
         className="border-2 rounded-md border-black p-5 w-[35%] flex flex-col gap-5 bg-[#fcf8f8]"
       >
         <div className="flex justify-center overflow-hidden">
@@ -79,42 +84,18 @@ export default function SignupForm() {
             <option value="Student">Student</option>
           </select>
         </div>
-        <div className="flex flex-col px-5 gap-1">
-          <label htmlFor="#password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="inp-type1"
-          />
-        </div>
-        <div className="flex flex-col px-5 gap-1">
-          <label htmlFor="#cpassword">Confirm Password</label>
-          <input
-            type="password"
-            id="cpassword"
-            value={cPassword}
-            onChange={(e) => setCpassword(e.target.value)}
-            className="inp-type1"
-          />
-        </div>
+        
         <div className="px-5">
           {error && <p className="text-xs text-red-700">{error}</p>}
         </div>
         <SmallButton
-          title={loading ? "Loading..." : "SIGNUP"}
+          title={loading ? "Loading..." : "UPDATE"}
           type={"submit"}
           styles={"tracking-widest"}
         />
-        <p className="text-xs mx-auto">
-          Already Have An Account ?{" "}
-          <span className="text-blue-600">
-            {" "}
-            <Link href={"/login"}>Login</Link>{" "}
-          </span>
-        </p>
       </form>
     </div>
   );
 }
+
+export default EditProfile;

@@ -8,6 +8,7 @@ function Section({index,serveSectionData}) {
   const [subtitle,setSubtitle] = useState('');
 
   useEffect(()=>{
+    
     if(type === "SUBTITLE"){
       serveSectionData({type,subtitle},index)
     }else if(type === "IMAGE"){
@@ -17,8 +18,8 @@ function Section({index,serveSectionData}) {
     }
   },[description,image,subtitle])
 
+
   const handleImage = (e)=>{
-    console.log(e.target.files[0]);
     
     setImage(e.target.files[0])
   }

@@ -15,7 +15,7 @@ const Header = () => {
     <header className="fixed w-screen bg-[#fffbfb] min-h-[5rem]">
         <nav className="px-12 py-5 flex items-center justify-between">
         <div>
-            <h1 className={`font-bold text-3xl ${montserrat.className} antialiased`}>DevDiary</h1>
+            <h1 className={`font-bold text-3xl ${montserrat.className} antialiased cursor-pointer`} onClick={()=>router.push("/")}>DevDiary</h1>
         </div>
         <div className='flex items-center gap-8 w-[70%] justify-end'>
             <IoCreateOutline onClick={()=>router.push('/write')} className="w-[1.5rem] h-[1.5rem] cursor-pointer" />

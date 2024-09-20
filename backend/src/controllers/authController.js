@@ -147,7 +147,6 @@ export const signup = async (req, res, next) => {
 
 export const logout = async (req, res, next) => {
   try {
-    
     res.cookie("token", null, {
       httpOnly: true,
       secure: true,
@@ -157,10 +156,105 @@ export const logout = async (req, res, next) => {
     res.cookie("refresh", null, {
       httpOnly: true,
       secure: true,
-      maxAge:  1000, //30 days
+      maxAge: 1000, //30 days
     });
-    res.status(200).json({success:true})
+    res.status(200).json({ success: true });
+  } catch (error) {
+    next(error);
+  }
+};
 
+export const editProfile = async (req, res, next) => {
+  try {
+    const { name, email, designation } = req.body;
+    const { _id } = req.user;
+    if (
+      name?.trim() === "" &&
+      email?.trim() === "" &&
+      designation?.trim() === ""
+    ) {
+      throw CustomError.createError("Please fill up the fields!!", 400);
+    }
+
+    if (email?.trim() === "") {
+      throw CustomError.createError("Please enter a email!!", 400);
+    }
+
+    if (!emailRegex.test(email)) {
+      throw CustomError.createError("Please enter a valid email!!", 400);
+    }
+
+    const userExist = await UserModel.findOne({ _id });
+
+    if (!userExist) {
+      throw CustomError.createError("Invalid Request!!", 400);
+    }
+    console.log(name, email, designation);
+
+    const userData = {
+      name,
+      email,
+      designation,
+    };
+
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      { _id },
+      { $set: userData },
+      { new: true }
+    );
+    console.log(updatedUser);
+    const { password, __v, ...rest } = updatedUser.toObject();
+    res.json({ success: rest });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const changePassword = async (req, res, next) => {
+  try {
+    const { oPassword, newPass } = req.body;
+    const { _id } = req.user;
+    if (oPassword?.trim() === "" && newPass?.trim() === "") {
+      throw CustomError.createError("Please fill up the fields!!", 400);
+    }
+
+    if (newPass?.trim() === "") {
+      throw CustomError.createError("Please enter new password!!", 400);
+    }
+
+    if (newPass?.trim().length < 8) {
+      throw CustomError.createError(
+        "Password should contain minimum 8 digits!!",
+        400
+      );
+    }
+
+    if (!passwordRegex.test(newPass)) {
+      throw CustomError.createError(
+        "Password should contain alphabets and digits!!",
+        400
+      );
+    }
+
+    const userExist = await UserModel.findOne({ _id });
+
+    if (!userExist) {
+      throw CustomError.createError("Invalid User!!", 400);
+    }
+    const isValidPass = await compare(oPassword,userExist.password);
+    if(!isValidPass){
+      throw CustomError.createError("Invalid Old Password!!", 400);
+    }
+    const hashed = await hash(newPass, SALT_ROUNDS);
+    const userData = {
+      password: hashed,
+    };
+    console.log("HASH",hashed);
+    await UserModel.findByIdAndUpdate(
+      { _id },
+      { $set: userData }
+    );
+    res.json({ success: true });
   } catch (error) {
     next(error);
   }
