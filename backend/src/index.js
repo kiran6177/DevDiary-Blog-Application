@@ -20,6 +20,10 @@ app.use(cors({
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
+app.get("/",(req,res,next)=>{
+    res.status(200).json({success:"WORKING"})
+})
+
 app.use('/api',userRouter);
 
 app.use(errorHandler)
