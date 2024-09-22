@@ -12,7 +12,7 @@ const Header = () => {
     const router = useRouter();
 
   return (
-    <header className="fixed w-screen bg-[#fffbfb] min-h-[5rem]">
+    <header className="fixed w-screen bg-[#fffbfb] min-h-[5rem] z-40">
         <nav className="px-12 py-5 flex items-center justify-between">
         <div>
             <h1 className={`font-bold text-3xl ${montserrat.className} antialiased cursor-pointer`} onClick={()=>router.push("/")}>DevDiary</h1>
