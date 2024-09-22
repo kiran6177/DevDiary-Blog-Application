@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import LongButton from '../Button/LongButton';
 import SmallButton from '../Button/SmallButton';
-import Section from './Section';
 import toast, { Toaster } from 'react-hot-toast';
 import useFetch from '@/hooks/fetch';
 import { useRouter } from 'next/navigation';

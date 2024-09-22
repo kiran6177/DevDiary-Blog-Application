@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 import { passwordRegex } from "@/app/api/config";
 import useFetch from "@/hooks/fetch";
 import { ImCross } from "react-icons/im";
-import SmallButton from "../Button/SmallButton";
 
 function PasswordModal({setShowPassword}) {
   const [oPassword, setOPassword] = useState("");

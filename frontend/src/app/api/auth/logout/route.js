@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { AUTH_BASE_URL } from "../../config";
+import { AUTH_BASE_URL, JSON_CONTENT_TYPE } from "../../config";
 
 export async function GET(request) {
     const token = request.cookies.get('token');
@@ -9,7 +9,7 @@ export async function GET(request) {
     const response = await fetch(AUTH_BASE_URL+'/logout',{
         method:"GET",
         headers:{
-            "Content-Type": "application/json" 
+            "Content-Type": JSON_CONTENT_TYPE 
         },
         credentials:"include",
     })

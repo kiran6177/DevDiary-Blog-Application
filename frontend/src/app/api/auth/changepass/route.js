@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { AUTH_BASE_URL, passwordRegex } from "../../config";
+import { AUTH_BASE_URL, JSON_CONTENT_TYPE, passwordRegex } from "../../config";
 
 
 export async function PUT(request) {
@@ -11,7 +11,7 @@ export async function PUT(request) {
         return new NextResponse(JSON.stringify({error:"Please fill up the fields!!"}),{
             status : 400,
             headers:{
-                "Content-Type": "application/json" 
+                "Content-Type": JSON_CONTENT_TYPE 
             }   
         })
     }
@@ -19,7 +19,7 @@ export async function PUT(request) {
         return new NextResponse(JSON.stringify({error:"Invalid Password!!"}),{
             status : 400,
             headers:{
-                "Content-Type": "application/json" 
+                "Content-Type": JSON_CONTENT_TYPE 
             }   
         })
     }
@@ -28,7 +28,7 @@ export async function PUT(request) {
     const response = await fetch(AUTH_BASE_URL+'/changepass',{
         method:"PUT",
         headers:{
-            "Content-Type": "application/json" ,
+            "Content-Type": JSON_CONTENT_TYPE ,
             authorization: `Bearer ${token?.value || null}`,
             Cookie: cookieHeader,
         },

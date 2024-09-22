@@ -249,7 +249,6 @@ export const changePassword = async (req, res, next) => {
     const userData = {
       password: hashed,
     };
-    console.log("HASH",hashed);
     await UserModel.findByIdAndUpdate(
       { _id },
       { $set: userData }

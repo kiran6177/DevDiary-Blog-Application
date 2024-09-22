@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { AUTH_BASE_URL, emailRegex, passwordRegex } from "../../config";
+import { AUTH_BASE_URL, emailRegex, JSON_CONTENT_TYPE, passwordRegex } from "../../config";
 
 
 export async function POST(request) {
@@ -8,7 +8,7 @@ export async function POST(request) {
         return new NextResponse(JSON.stringify({error:"Please fill up the fields!!"}),{
             status : 400,
             headers:{
-                "Content-Type": "application/json" 
+                "Content-Type": JSON_CONTENT_TYPE 
             }   
         })
     }
@@ -17,7 +17,7 @@ export async function POST(request) {
         return new NextResponse(JSON.stringify({error:"Please enter a email!!"}),{
             status : 400,
             headers:{
-                "Content-Type": "application/json" 
+                "Content-Type": JSON_CONTENT_TYPE 
             }
         })
     }
@@ -27,7 +27,7 @@ export async function POST(request) {
         return new NextResponse(JSON.stringify({error:"Please enter a valid email!!"}),{
             status : 400,
             headers:{
-                "Content-Type": "application/json" 
+                "Content-Type": JSON_CONTENT_TYPE 
             }
         })
     }
@@ -36,7 +36,7 @@ export async function POST(request) {
         return new NextResponse(JSON.stringify({error:"Please enter a password!!"}),{
             status : 400,
             headers:{
-                "Content-Type": "application/json" 
+                "Content-Type": JSON_CONTENT_TYPE 
             }
         })
     }
@@ -45,7 +45,7 @@ export async function POST(request) {
         return new NextResponse(JSON.stringify({error:"Password should contain minimum 8 digits!!"}),{
             status : 400,
             headers:{
-                "Content-Type": "application/json" 
+                "Content-Type": JSON_CONTENT_TYPE 
             }
         })
     }
@@ -54,7 +54,7 @@ export async function POST(request) {
         return new NextResponse(JSON.stringify({error:"Password should contain alphabets and digits!!"}),{
             status : 400,
             headers:{
-                "Content-Type": "application/json" 
+                "Content-Type": JSON_CONTENT_TYPE 
             }
         })
     }
@@ -62,7 +62,7 @@ export async function POST(request) {
     const response = await fetch(AUTH_BASE_URL+'/login',{
         method:"POST",
         headers:{
-            "Content-Type": "application/json" 
+            "Content-Type": JSON_CONTENT_TYPE
         },
         credentials:"include",
         body:JSON.stringify(data)

@@ -2,6 +2,7 @@ import { CustomError } from "../common/CustomError.js";
 import BlogModel from "../models/blogModel.js";
 import cloudinary from "../utils/cloudinary.js";
 import { ObjectId } from "mongodb";
+const BLOGIMAGES_FOLDER_NAME = "blogimages";
 
 export const writeBlog = async (req, res, next) => {
   try {
@@ -12,7 +13,7 @@ export const writeBlog = async (req, res, next) => {
       const base64EncodedImage = Buffer.from(file.buffer).toString("base64");
       const dataUri = `data:${file.mimetype};base64,${base64EncodedImage}`;
       const result = await cloudinary.uploader.upload(dataUri, {
-        folder: "blogimages",
+        folder: BLOGIMAGES_FOLDER_NAME,
       });
       sections[file.fieldname].content = result?.secure_url;
     }
@@ -92,7 +93,7 @@ export const editBlog = async (req, res, next) => {
       const base64EncodedImage = Buffer.from(file.buffer).toString("base64");
       const dataUri = `data:${file.mimetype};base64,${base64EncodedImage}`;
       const result = await cloudinary.uploader.upload(dataUri, {
-        folder: "blogimages",
+        folder: BLOGIMAGES_FOLDER_NAME,
       });
 
       if (postData.sections[file.fieldname].type === "IMAGE") {
@@ -102,7 +103,7 @@ export const editBlog = async (req, res, next) => {
           .split(".")[0];
         console.log(publicId);
         await cloudinary.uploader.destroy(
-          "blogimages/" + publicId,
+          BLOGIMAGES_FOLDER_NAME + "/" + publicId,
           (error, result) => {
             if (error) {
               console.error("Error deleting asset from Cloudinary:", error); // Log any errors
@@ -152,7 +153,7 @@ export const deleteBlogById = async (req, res, next) => {
           .split(".")[0];
         console.log(publicId);
         await cloudinary.uploader.destroy(
-          "blogimages/" + publicId,
+          BLOGIMAGES_FOLDER_NAME + "/" + publicId,
           (error, result) => {
             if (error) {
               console.error("Error deleting asset from Cloudinary:", error); 
