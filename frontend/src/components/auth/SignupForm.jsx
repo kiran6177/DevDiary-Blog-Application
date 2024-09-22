@@ -35,7 +35,7 @@ export default function SignupForm() {
       <Toaster position="top-right" containerStyle={{top:90,right:50}} />
       <form
         onSubmit={handleSignupSubmit}
-        className="border-2 rounded-md border-black p-5 w-[35%] flex flex-col gap-5 bg-[#fcf8f8]"
+        className="border-2 rounded-md border-black p-5 w-[90%] sm:w-[75%] md:w-[65%] lg:w-[45%] xl:w-[35%] flex flex-col gap-5 bg-[#fcf8f8]"
       >
         <div className="flex justify-center overflow-hidden">
           <Image

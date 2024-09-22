@@ -44,7 +44,7 @@ export default function LoginForm() {
   return (
     <div className="w-screen flex justify-center ">
       <Toaster position="top-right" containerStyle={{top:90,right:50}} />
-      <form onSubmit={handleLoginSubmit} className="border-2 rounded-md border-black p-5 w-[35%] flex flex-col gap-5 bg-[#fcf8f8]">
+      <form onSubmit={handleLoginSubmit} className="border-2 rounded-md border-black p-5 w-[90%] sm:w-[75%] md:w-[65%] lg:w-[45%] xl:w-[35%] flex flex-col gap-5 bg-[#fcf8f8]">
         <div className="flex justify-center overflow-hidden">
             <Image priority src={'/LoginLogo.jpg'} alt="LoginLogo" width={100} height={100} className="rounded-full" />
         </div>

@@ -38,7 +38,7 @@ function Profile() {
     <>
     <div>
       <Toaster position="top-right" containerStyle={{ top: 90, right: 50 }} />
-      <div className="flex justify-between">
+      <div className="flex flex-col lg:flex-row gap-4 lg:justify-between">
         <div className="flex gap-5 mt-2 mb-5">
           <h3
             onClick={() => setSelected("ACCOUNT")}
