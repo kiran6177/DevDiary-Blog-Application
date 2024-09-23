@@ -33,7 +33,7 @@ export default async function Page({ params }) {
 
   return (
     <div className="pt-[7rem] px-12 flex justify-center">
-      <div className="w-[50%] flex flex-col gap-7 py-10">
+      <div className="w-[90%] md:w-[60%] flex flex-col gap-7 py-10">
         <h1 className="text-3xl font-bold">{blog?.title}</h1>
         <div className="flex flex-col gap-3">
           <div className="flex gap-3 items-center text-sm">
@@ -60,7 +60,7 @@ export default async function Page({ params }) {
                 }else if(section?.type === "DESCRIPTION"){
                     return (
                         <div key={i} className="leading-7">
-                            <p>{section?.content}</p>
+                            <pre>{section?.content}</pre>
                         </div>
                     )
                 }else{
