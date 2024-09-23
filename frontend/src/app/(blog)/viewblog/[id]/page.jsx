@@ -60,7 +60,7 @@ export default async function Page({ params }) {
                 }else if(section?.type === "DESCRIPTION"){
                     return (
                         <div key={i} className="leading-7">
-                            <pre>{section?.content}</pre>
+                            <pre style={{fontFamily:"inherit"}} className="whitespace-pre-wrap ">{section?.content}</pre>
                         </div>
                     )
                 }else{
